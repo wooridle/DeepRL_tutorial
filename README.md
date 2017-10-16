@@ -20,6 +20,11 @@
 > 현재 윈도우 환경 설치는 다음 링크를 참조하여 작성하였습니다.
 > [[link : openai gym window support issue]](https://github.com/openai/gym/issues/11)
 
+### Tutorial Code
+
+튜토리얼에서 사용되는 코드는 [[source_code]](./source_code) 폴더에 있습니다.
+
+
 ### IDE(interface Development environment)
 
 공통적으로 파이참(pycharm)[[link]](https://www.jetbrains.com/pycharm/)을 IDE로 사용하고 있습니다.
