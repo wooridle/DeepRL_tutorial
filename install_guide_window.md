@@ -307,7 +307,7 @@
   - Github 레포지토리 : https://github.com/rlcode/reinforcement-learning-kr
 
   ```shell
-  pip install -r requirement.txt
+  pip install -r requirements.txt
   ```
 
 ### 11. breakout_dqn.py 실행
