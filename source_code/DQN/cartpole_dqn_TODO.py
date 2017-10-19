@@ -48,14 +48,14 @@ class DQNAgent:
     # approximate Q function using Neural Network
     # state is input and Q Value of each action is output of network
     def build_model(self):
+        # TODO
         model = Sequential()
         model.add(Dense(24, input_dim=self.state_size, activation='relu',
-                        kernel_initializer='he_uniform'))
+                  kernel_initializer='he_uniform'))
         model.add(Dense(24, activation='relu',
                         kernel_initializer='he_uniform'))
-        model.add(Dense(self.action_size, activation='linear',
+        model.add(Dense(self.action_size, action_size='linear',
                         kernel_initializer='he_uniform'))
-        model.summary()
         model.compile(loss='mse', optimizer=Adam(lr=self.learning_rate))
         return model
 
@@ -65,28 +65,28 @@ class DQNAgent:
 
     # get action from model using epsilon-greedy policy
     def get_action(self, state):
+        # TODO
         if np.random.rand() <= self.epsilon:
             return random.randrange(self.action_size)
         else:
             q_value = self.model.predict(state)
-            return np.argmax(q_value[0])
+            return  np.argmax(q_value[0])
+
+
 
     # save sample <s,a,r,s'> to the replay memory
     def append_sample(self, state, action, reward, next_state, done):
+        # TODO
         self.memory.append((state, action, reward, next_state, done))
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
+
 
     # pick samples randomly from replay memory (with batch_size)
     def train_model(self):
         if len(self.memory) < self.train_start:
             return
-        batch_size = min(self.batch_size, len(self.memory))
-        mini_batch = random.sample(self.memory, batch_size)
-
-        update_input = np.zeros((batch_size, self.state_size))
-        update_target = np.zeros((batch_size, self.state_size))
-        action, reward, done = [], [], []
+        # TODO
 
         for i in range(self.batch_size):
             update_input[i] = mini_batch[i][0]
@@ -115,12 +115,13 @@ if __name__ == "__main__":
     # In case of CartPole-v1, maximum length of episode is 500
     env = gym.make('CartPole-v1')
     # get size of state and action from environment
+    # TODO
     state_size = env.observation_space.shape[0]
     action_size = env.action_space.n
 
     agent = DQNAgent(state_size, action_size)
 
-    scores, episodes = [], []
+    score, epsodes = [], []
 
     for e in range(EPISODES):
         done = False
@@ -133,18 +134,15 @@ if __name__ == "__main__":
                 env.render()
 
             # get action for the current state and go one step in environment
-            action = agent.get_action(state)
-            next_state, reward, done, info = env.step(action)
-            next_state = np.reshape(next_state, [1, state_size])
+            # TODO
+
             # if an action make the episode end, then gives penalty of -100
             reward = reward if not done or score == 499 else -100
 
             # save the sample <s, a, r, s'> to the replay memory
-            agent.append_sample(state, action, reward, next_state, done)
+            # TODO
             # every time step do the training
-            agent.train_model()
-            score += reward
-            state = next_state
+            # TODO
 
             if done:
                 # every episode update the target model to be same with model
