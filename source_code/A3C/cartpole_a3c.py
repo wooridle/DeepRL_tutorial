@@ -14,12 +14,13 @@ from keras import backend as K
 episode = 0
 scores = []
 
-EPISODES = 2000
+EPISODES = 5000
 
 # This is A3C(Asynchronous Advantage Actor Critic) agent(global) for the Cartpole
 # In this example, we use A3C algorithm
 class A3CAgent:
     def __init__(self, state_size, action_size, env_name):
+
         # get size of state and action
         self.state_size = state_size
         self.action_size = action_size
@@ -31,7 +32,7 @@ class A3CAgent:
         self.actor_lr = 0.001
         self.critic_lr = 0.001
         self.discount_factor = .99
-        self.hidden1, self.hidden2 = 24, 24
+        self.hidden = 24
         self.threads = 8
 
         # create model for actor and critic network
@@ -47,15 +48,13 @@ class A3CAgent:
     # approximate policy and value using Neural Network
     # actor -> state is input and probability of each action is output of network
     # critic -> state is input and value of state is output of network
-    # actor and critic network share first hidden layer
     def build_model(self):
         state = Input(batch_shape=(None,  self.state_size))
-        shared = Dense(self.hidden1, input_dim=self.state_size, activation='relu', kernel_initializer='glorot_uniform')(state)
 
-        actor_hidden = Dense(self.hidden2, activation='relu', kernel_initializer='glorot_uniform')(shared)
+        actor_hidden = Dense(self.hidden, activation='relu', kernel_initializer='glorot_uniform')(state)
         action_prob = Dense(self.action_size, activation='softmax', kernel_initializer='glorot_uniform')(actor_hidden)
 
-        value_hidden = Dense(self.hidden2, activation='relu', kernel_initializer='he_uniform')(shared)
+        value_hidden = Dense(self.hidden, activation='relu', kernel_initializer='he_uniform')(state)
         state_value = Dense(1, activation='linear', kernel_initializer='he_uniform')(value_hidden)
 
         actor = Model(inputs=state, outputs=action_prob)
@@ -220,4 +219,5 @@ if __name__ == "__main__":
     env.close()
 
     global_agent = A3CAgent(state_size, action_size, env_name)
+
     global_agent.train()
