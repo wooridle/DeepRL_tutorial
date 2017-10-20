@@ -307,7 +307,7 @@
   - Github 레포지토리 : https://github.com/rlcode/reinforcement-learning-kr
 
   ```shell
-  pip install -r requirement.txt
+  pip install -r requirements.txt
   ```
 
 ### 11. breakout_dqn.py 실행
@@ -323,5 +323,7 @@
 
 
 - 아타리 브레이크 아웃 실행화면 입니다.
-
+  ```python
+  python play_dqn_model.py
+  ```
   <p align="center"><img src='./img/win_breakout2.png'></p>
